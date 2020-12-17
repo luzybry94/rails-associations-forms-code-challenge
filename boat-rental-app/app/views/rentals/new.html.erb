@@ -1,0 +1,8 @@
+<%= form_for @rental do |f| %>
+  <%= f.label :date_time %>
+  <%= f.datetime_field :date_time %>
+  <br>
+  <%= f.collection_select :boat_id, Boat.all, :id, :name %>
+  <%= f.text_field :%>
+  <%= f.submit %>
+<% end %>

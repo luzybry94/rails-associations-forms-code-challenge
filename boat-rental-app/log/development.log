@@ -24,3 +24,123 @@ Migrating to CreateRentals (20201216200848)
   [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mRental Update (0.4ms)[0m  [1m[33mUPDATE "rentals" SET "date_time" = ?, "updated_at" = ? WHERE "rentals"."id" = ?[0m  [["date_time", "2020-12-16 20:15:24.328291"], ["updated_at", "2020-12-16 20:15:40.209437"], ["id", 2]]
   [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (3.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBoats (20201217203144)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "boats" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "color" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20201217203144"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateCustomers (20201217203248)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "customers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "age" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20201217203248"]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddAssociationColumnsToRentals (20201217203701)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "rentals" ADD "boat_id" integer[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "rentals" ADD "customer_id" integer[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20201217203701"]]
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBoat Create (1.7ms)[0m  [1m[32mINSERT INTO "boats" ("name", "color", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Jolly Roger"], ["color", "black"], ["created_at", "2020-12-17 20:57:17.862239"], ["updated_at", "2020-12-17 20:57:17.862239"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBoat Create (0.9ms)[0m  [1m[32mINSERT INTO "boats" ("name", "color", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Boaty"], ["color", "blue"], ["created_at", "2020-12-17 20:57:39.525005"], ["updated_at", "2020-12-17 20:57:39.525005"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for ::1 at 2020-12-17 12:58:33 -0800
+  [1m[35m (3.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/luzybryski/.rvm/gems/ruby-2.6.1/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/luzybryski/.rvm/gems/ruby-2.6.1/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 18.4ms | Allocations: 480)
+Completed 200 OK in 53ms (Views: 32.3ms | ActiveRecord: 0.0ms | Allocations: 2912)
+
+
+Started GET "/rentals/new" for ::1 at 2020-12-17 12:58:39 -0800
+Processing by RentalsController#new as HTML
+  Rendering rentals/new.html.erb within layouts/application
+  Rendered rentals/new.html.erb within layouts/application (Duration: 5.3ms | Allocations: 1835)
+Completed 500 Internal Server Error in 43ms (ActiveRecord: 1.4ms | Allocations: 11059)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <%= form_for @rental do |f| %>
+  <%= f.label :datetime %>
+  <%= f.datetime_field :datetime %>
+  <br>
+  <%= f.collection_select :boat_id, Boat.all, :id, :name %>
+
+  <% end %>
+
+
+<% end %>
+):
+1:    <%= form_for @rental do |f| %>
+2:      <%= f.label :datetime %>
+3:      <%= f.datetime_field :datetime %>
+4:      <br>
+5:      <%= f.collection_select :boat_id, Boat.all, :id, :name %>
+6:    
+7:      <% end %>
+8:    
+9:    
+10:    <% end %>
+  
+app/views/rentals/new.html.erb:12: syntax error, unexpected end, expecting end-of-input
+app/views/rentals/new.html.erb:12: syntax error, unexpected end, expecting end-of-input
+app/views/rentals/new.html.erb:12: syntax error, unexpected end, expecting end-of-input
+app/views/rentals/new.html.erb:12: syntax error, unexpected end, expecting end-of-input
+app/views/rentals/new.html.erb:12: syntax error, unexpected end, expecting end-of-input
+app/views/rentals/new.html.erb:12: syntax error, unexpected end, expecting end-of-input
+Started GET "/rentals/new" for ::1 at 2020-12-17 12:58:59 -0800
+Processing by RentalsController#new as HTML
+  Rendering rentals/new.html.erb within layouts/application
+  Rendered rentals/new.html.erb within layouts/application (Duration: 52.8ms | Allocations: 7542)
+Completed 500 Internal Server Error in 65ms (ActiveRecord: 0.0ms | Allocations: 8823)
+
+
+  
+ActionView::Template::Error (undefined method `datetime' for #<Rental:0x00007fd3d43b6708>
+Did you mean?  date_time
+               date_time=
+               date_time?):
+    1: <%= form_for @rental do |f| %>
+    2:   <%= f.label :datetime %>
+    3:   <%= f.datetime_field :datetime %>
+    4:   <br>
+    5:   <%= f.collection_select :boat_id, Boat.all, :id, :name %>
+    6: 
+  
+app/views/rentals/new.html.erb:3
+app/views/rentals/new.html.erb:1
+Started GET "/rentals/new" for ::1 at 2020-12-17 12:59:36 -0800
+Processing by RentalsController#new as HTML
+  Rendering rentals/new.html.erb within layouts/application
+  [1m[36mBoat Load (1.4ms)[0m  [1m[34mSELECT "boats".* FROM "boats"[0m
+  ↳ app/views/rentals/new.html.erb:5
+  Rendered rentals/new.html.erb within layouts/application (Duration: 59.2ms | Allocations: 8657)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/luzybryski/Flatiron/code/mod3/labs/rails-associations-forms-code-challenge/boat-rental-app/public/packs
+[Webpacker] Hash: 76145d9ce4575ebaa29b
+Version: webpack 4.44.2
+Time: 6403ms
+Built at: 12/17/2020 12:59:49 PM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-c229f7c7014cf8c8d494.js    124 KiB  application  [emitted] [immutable]  application
+js/application-c229f7c7014cf8c8d494.js.map    139 KiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-c229f7c7014cf8c8d494.js js/application-c229f7c7014cf8c8d494.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 749 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+Completed 200 OK in 13748ms (Views: 13741.3ms | ActiveRecord: 3.1ms | Allocations: 34567)
+
+

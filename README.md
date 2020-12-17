@@ -2,8 +2,11 @@
 
 ## Part 1: Conceptual questions
 1. What’s the difference between form_tag and form_for. When would we use each?
+- form_for is more specific to an object/form_tag is used for more generic forms
 2. Why do we use strong_params?
+- protect us from bad data(1. malicious. 2. clueless)..white listing (require and allow specific params)
 3. What is a partial and how does it improve our code?
+- a view that we can render from another view that helps us write DRY code
 
 ## Part 2: Expand and refactor your boat rental app to include some assotiations
 * Rental belongs to Boat

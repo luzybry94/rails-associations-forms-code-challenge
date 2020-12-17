@@ -1,4 +1,6 @@
 class Rental < ApplicationRecord
+    belongs_to :customer
+    belongs_to :boat
     validates :boat_name, :customer_name, :date_time, presence: true
     validate :date_time_cannot_be_in_past
 
@@ -7,5 +9,6 @@ class Rental < ApplicationRecord
             errors.add('Rental date and time cannot be in past')
         end
     end
+
 
 end
